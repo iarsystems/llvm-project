@@ -664,7 +664,7 @@ llvm::ARM::FPUKind arm::getARMTargetFeatures(const Driver &D,
       D.Diag(clang::diag::warn_drv_unused_argument)
           << FPUArg->getAsString(Args);
     (void)getARMFPUFeatures(D, WaFPU->first, Args, WaFPU->second, Features);
-  } else if (FPUArg) {
+  } else if (FPUArg && std::string("auto") != FPUArg->getValue()) {
     FPUKind = getARMFPUFeatures(D, FPUArg, Args, FPUArg->getValue(), Features);
   } else if (Triple.isAndroid() && getARMSubArchVersionNumber(Triple) == 7) {
     const char *AndroidFPU = "neon";
